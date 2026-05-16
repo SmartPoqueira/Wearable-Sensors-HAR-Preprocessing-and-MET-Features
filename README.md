@@ -27,4 +27,4 @@ These features provide a more robust representation of movement and physiologica
 
 By integrating heart rate data with acceleration patterns, this approach contributes to developing more reliable HAR systems with potential applications in healthcare, fitness tracking, and everyday activity monitoring.
 
-![Model Accuracies using MET Features](Figures/all-smvRUFHRR.eps)
+![Model Accuracies using MET Features](Figures/all-smvRUFHRR.png)
