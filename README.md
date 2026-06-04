@@ -12,15 +12,15 @@ This project provides a robust preprocessing, feature extraction, and machine le
 
 To capture physical intensity and cardiovascular strain, the preprocessing pipeline extracts the following features:
 
-### 1. Signal Magnitude Vector ($SMV$)
-$$SMV = \sqrt{x^2 + y^2 + z^2}$$
+### 1. Signal Magnitude Vector ($SVMg$)
+$$SVMg = \sqrt{x^2 + y^2 + z^2}$$
 
-### 2. Filtered Signal Magnitude Vector ($SMV_{fil}$)
-Accelerations are passed through a Butterworth high-pass filter ($f_c = 0.25$ Hz) to isolate dynamic movement from gravity:
-$$SMV_{fil} = \sqrt{x_{fil}^2 + y_{fil}^2 + z_{fil}^2}$$
+### 2. Filtered Signal Magnitude Vector ($SVMg_{\mathrm{fil}}$)
+Accelerations are passed through a 4th-order Butterworth high-pass filter ($f_c = 3$ Hz) to isolate dynamic movement from gravity:
+$$SVMg_{\mathrm{fil}} = \sqrt{x_{fil}^2 + y_{fil}^2 + z_{fil}^2}$$
 
 ### 3. Ratio of Unfiltered to Filtered acceleration ($RUF$)
-$$RUF = \frac{SMV}{SMV_{fil}}$$
+$$RUF = \frac{SVMg}{SVMg_{\mathrm{fil}}}$$
 
 ### 4. Heart Rate Reserve Percentage ($\%HRR$)
 The cardiac workload is normalized against individual baseline limits:
@@ -33,7 +33,7 @@ $$\%HRR = \frac{HR - HR_{rest}}{HR_{max} - HR_{rest}} \times 100$$
 ```mermaid
 graph TD
     A[Raw Sensor Data: ACC & HR] --> B[High-pass Butterworth Filter]
-    B --> C[Extract MET Features: SMV_fil, RUF, %HRR]
+    B --> C[Extract MET Features: SVMg_fil, RUF, %HRR]
     C --> D[LOCO-CV Subject Partitioning]
     D --> E[Train Classical & Deep Classifiers]
     E --> F[Evaluate Spot-Check Models]
@@ -48,16 +48,16 @@ graph TD
 | Feature Set | LR | LDA | KNN | DT-CART | NB | SVM | TabNet |
 | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
 | $x, y, z$ | 32.4% | 33.1% | 29.8% | 27.5% | 28.1% | 34.0% | 35.8% |
-| $x, y, z, SMV$ | 35.1% | 34.8% | 38.3% | 36.4% | 33.2% | 40.2% | 41.5% |
-| $x_{fil}, y_{fil}, z_{fil}, SMV_{fil}$ | 45.2% | 46.8% | 43.1% | 41.0% | 42.5% | 48.9% | 50.2% |
-| $SMV_{fil}, RUF$ | 51.3% | 52.4% | 53.0% | 49.8% | 48.7% | 54.1% | 55.6% |
-| **$SMV_{fil}, RUF, \%HRR$** | **81.4%** | **82.2%** | **84.5%** | **78.9%** | **77.6%** | **85.4%** | **86.9%** |
+| $x, y, z, SVMg$ | 35.1% | 34.8% | 38.3% | 36.4% | 33.2% | 40.2% | 41.5% |
+| $x_{fil}, y_{fil}, z_{fil}, SVMg_{\mathrm{fil}}$ | 45.2% | 46.8% | 43.1% | 41.0% | 42.5% | 48.9% | 50.2% |
+| $SVMg_{\mathrm{fil}}, RUF$ | 51.3% | 52.4% | 53.0% | 49.8% | 48.7% | 54.1% | 55.6% |
+| **$SVMg_{\mathrm{fil}}, RUF, \%HRR$** | **81.4%** | **82.2%** | **84.5%** | **78.9%** | **77.6%** | **85.4%** | **86.9%** |
 
 ### Table V: Accuracy on Activity Subset (Drawing, Dishes, Regular Walk, Stairs)
 | Feature Set | LR | LDA | KNN | DT-CART | NB | SVM | TabNet |
 | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
 | $x, y, z$ | 48.9% | 49.2% | 51.5% | 44.3% | 42.1% | 53.0% | 55.2% |
-| **$SMV_{fil}, RUF, \%HRR$** | **92.1%** | **91.8%** | **94.2%** | **89.5%** | **88.7%** | **95.1%** | **96.8%** |
+| **$SVMg_{\mathrm{fil}}, RUF, \%HRR$** | **92.1%** | **91.8%** | **94.2%** | **89.5%** | **88.7%** | **95.1%** | **96.8%** |
 
 ---
 
