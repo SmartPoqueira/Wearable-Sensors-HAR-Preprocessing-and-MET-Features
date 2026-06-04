@@ -1,0 +1,26 @@
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.pytest_cache/
+.DS_Store
+
+# Outputs and generated features (must not be committed)
+*.csv
+accuracies/
+Results/
+
+# Paper resources (local copies excluded from remote repo)
+paper/
+original_papers/
+*.zip
+*.pdf
+*.tex
+*.bib
+*.cls
+*.bst
+*.png
+!logo_unirv.png
+!Fig1_experiment_2.eps
+!Fig2_pipeline.eps
+!Fig3_M008corrmatrix.eps

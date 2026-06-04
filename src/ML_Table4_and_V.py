@@ -17,10 +17,10 @@ import warnings
 warnings.filterwarnings("ignore")
 
 RANDOM_SEED = 5
-path = './codigo/clean/Data/'
+path = './data/'
 featuresScalatedCut = 'featur-scale-cut-mios.csv'
-
-foldersMIOS = ['F-014', 'F-046', 'F-047', 'M-003', 'M-004', 'M-007', 'M-008']
+from data_helper import ensure_data_and_features
+foldersMIOS = ensure_data_and_features(path)
 
 feature_configs = {
     'x, y, z': ['x', 'y', 'z'],
@@ -154,7 +154,7 @@ def run_experiment(activity_set, table_name):
         return
 
     frame = pd.concat(dataset)
-    y = frame.loc[:, "activity"].values
+    y = frame.loc[:, "activity"].astype(str).to_numpy()
     
     le = LabelEncoder()
     y_encoded = le.fit_transform(y)
@@ -165,7 +165,7 @@ def run_experiment(activity_set, table_name):
     
     for config_name, features in feature_configs.items():
         print(f"  Processing features: {config_name}")
-        X = frame.loc[:, features].values
+        X = frame.loc[:, features].to_numpy(dtype=np.float32)
         
         for model_name, model_inst in models:
             if model_name not in results_table:

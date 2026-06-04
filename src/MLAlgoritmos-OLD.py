@@ -27,9 +27,9 @@ from sklearn.naive_bayes import GaussianNB
 from sklearn import datasets, neighbors
 from mlxtend.plotting import plot_decision_regions
 
-path = './Data/'
-folders = []
-foldersMIOS = ['F-014', 'F-045', 'F-046', 'M-003', 'M-004', 'M-007']
+path = './data/'
+from data_helper import ensure_data_and_features
+foldersMIOS = ensure_data_and_features(path)
 fileFeatures = 'featuresRAW-mios.csv'
 featuresScalatedCut = 'featur-scale-cut-mios.csv'
 maxsamples = 446 #This is the lowest number in one of activity with lower samples (and we cut all the activities with this number). This activity is for M-008 in us).
@@ -186,6 +186,5 @@ def modelsrun():
         print('%s: %f (%f)' % (name, cv_results.mean(), cv_results.std()))
 
 
-#scaleBalanced()
-#split()
+scaleBalanced()
 modelsrun()

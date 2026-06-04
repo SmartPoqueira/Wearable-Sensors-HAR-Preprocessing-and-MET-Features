@@ -8,10 +8,9 @@ from sklearn.metrics import accuracy_score, confusion_matrix, classification_rep
 from pytorch_tabnet.tab_model import TabNetClassifier
 
 RANDOM_SEED = 5
-path = './Data/'
-
-# Folders to use (same as MLAlgoritmos.py)
-foldersMIOS = ['F-014', 'F-046', 'F-047', 'M-003', 'M-004', 'M-007', 'M-008']
+path = './data/'
+from data_helper import ensure_data_and_features
+foldersMIOS = ensure_data_and_features(path)
 
 # Activities
 activitySet = ['lie', 'r', 'd', 'wd', 'wp', 'ws', 'wr', 'wf', 'ds', 'us']

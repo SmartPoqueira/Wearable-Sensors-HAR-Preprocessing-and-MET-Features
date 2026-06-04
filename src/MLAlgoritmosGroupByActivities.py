@@ -25,28 +25,9 @@ from collections import Counter
 
 
 
-path = './Data/'
-folders = []
-# F-045 es de MJ, y está mal etiquetado
-#foldersMIOS = ['F-014', 'F-046', 'M-003', 'M-004', 'M-007']
-
-# foldersMIOS = ['F-014', #Carreras
-#                'F-045', #MJ
-#                'F-046', #Ada
-#                'F-047', #yo
-#                'M-003', #Art
-#                'M-004', #Oc
-#                'M-007', #Simo
-#                'M-008'] #Alb
-
-foldersMIOS = ['F-014', #Carreras
-               #'F-045', #MJ
-               'F-046', #Ada
-               'F-047', #yo
-               'M-003', #Art
-               'M-004', #Oc
-               'M-007', #Simo
-               'M-008'] #Alb
+path = './data/'
+from data_helper import ensure_data_and_features
+foldersMIOS = ensure_data_and_features(path)
 
 Allactivities = ['lie', 'r', 'd', 'wd', 'wp', 'ws', 'wr', 'wf', 'ds', 'us']
 activitySet = ['d', 'wd', 'wr', 'ds-us']
@@ -197,10 +178,8 @@ def modelsrun():
         #print('%s: %f (%f)' % (name, cv_results.mean(), cv_results.std()))
     return names, results
 
-#scaleBalanced()
- # This is to run the ML and plot the accuracy of each Algorithm
+scaleBalanced()
 [names,resultsAv] = modelsrun()
-    #
 print(resultsAv)
 plt.boxplot(resultsAv)
 plt.xticks(np.arange(len(names))+1, names)
